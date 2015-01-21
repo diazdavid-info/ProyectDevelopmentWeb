@@ -27,11 +27,18 @@ class Api extends Rest {
 		$this->sendResponse(json_encode($argLeague), 200);
 	}
 	
+	private function getTeam(){
+		$argTeam = Team::where("liga_id", $this->_argumentos[0]);
+		$this->sendResponse(json_encode($argTeam), 200);
+	}
+	
+	private function getMatch(){
+		$argMatch = Match::where("liga_id", $this->_argumentos[0]);
+		$this->sendResponse(json_encode($argMatch), 200);
+	}
+	
 	private function getProvincia() {
-		//echo "<br />";
-		//print_r($this->_argumentos);
 		$provincias = Provincia::find(1);
-		//var_dump($provincias);
 		$this->sendResponse(json_encode($provincias), 200);
 		//echo $idUsuario . "<br/>";
 // 		if (isset($this->datosPeticion['nombre'])) {

@@ -2,14 +2,31 @@
  * 
  */
 
+var leagues;
+
 window.onload = function() {
 	//alert(window.Constant.URL_SERVER());
 	getAllLeague();
+	//getMatchLeague();
+	getTeamLeague();
 }
 
 function getAllLeague(){
-	var leagues = window.Utils.ParseJsonToObjct(requestServer("getLeague"), League);
+	leagues = window.Utils.ParseJsonToObjct(requestServer("getLeague"), League);
 	console.log(leagues);
+}
+
+function getTeamLeague() {
+	teams = window.Utils.ParseJsonToObjct(requestServer("getTeam/"+leagues.getId()), Team);
+	console.log(teams);
+}
+
+function getAllMatch(){
+	
+}
+
+function getMatchLeague(){
+	var Matches = window.Utils.ParseJsonToObjct(requestServer("getMatch/"+leagues.getId()), Match);
 }
 
 function requestServer(request){
