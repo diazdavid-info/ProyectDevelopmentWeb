@@ -1,0 +1,278 @@
+@CHARSET "UTF-8";
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+}
+
+h3{
+	font-size: 1.4rem;
+}
+
+h4{
+	font-size: 1.2rem;
+}
+
+button{
+	cursor: pointer;
+}
+
+html{
+	font-size: 16px;
+	width: 100%;
+}
+
+body{
+	width: 100%;
+	overflow-x: hidden;
+}
+
+header{
+	width: 100%;
+}
+
+nav{
+	width: 100%;
+}
+
+nav > img{
+	width: 100%;
+}
+
+nav > #botton-menu{
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 2% 5%;
+	background-color: white;
+	padding: 0.5% 1.5%;
+	border-radius: 10px;
+}
+
+nav > #botton-menu > a{
+	text-decoration: none;
+}
+
+nav > #botton-menu > a > span{
+	font-size: 1.2rem;
+	text-transform: uppercase;
+	color: #848484;
+}
+
+nav > #botton-menu > a > img{
+	vertical-align: baseline;
+}
+
+nav > #desple-menu{
+	position: absolute;
+	top: 0;
+	right: -40%;
+	width: 40%;
+	background-color: rgba(0,0,0,0.85);
+	z-index: 1;
+}
+
+nav > #desple-menu > ul{
+	padding: 5% 15%;
+	list-style: none;
+}
+
+nav > #desple-menu > ul > li{
+	margin-bottom: 5%;
+	color: white;
+	font-size: 1.2rem;
+	text-transform: uppercase;
+}
+
+nav > #desple-menu > #botton-close{
+	margin: 5% 12%;
+	background-color: white;
+	padding: 1% 2%;
+	border-radius: 10px;
+	float: right;
+}
+
+nav > #desple-menu > #botton-close > a{
+	text-decoration: none;
+}
+
+nav > #desple-menu > #botton-close > a > span{
+	font-size: 1.2rem;
+	text-transform: uppercase;
+	color: #848484;
+}
+
+#wraper{
+	width: 100%;
+	position: absolute;
+	top: 0;
+	margin-top: 15%;
+	box-shadow: 0px -5px 20px black;
+	-webkit-box-shadow: 0px -5px 20px black;
+	-moz-box-shadow: 0px -5px 20px black;
+	-o-box-shadow: 0px -5px 20px black;
+}
+
+#wraper > aside{
+	background-color: #545454;
+	width: 25%;
+	float: right;
+}
+
+#wraper > aside > #filter{
+	width: 100%;
+	margin: 0 auto;
+}
+
+#wraper > aside > #filter > #head-filter{
+	width: 100%;
+	font-size: 0;
+	margin-bottom: 2%;
+}
+
+#wraper > aside > #filter > #head-filter > .button-aside{
+	display: inline-block;
+	width: 50%;
+	background-color: white;
+	padding: 2%;
+	text-align: center;
+	cursor: pointer;
+}
+
+#wraper > aside > #filter > #head-filter > .select{
+	background-color: grey;
+}
+
+#wraper > aside > #filter > #body-filter, #body-controller{
+	padding: 0 2%;
+}
+
+#wraper > aside > #filter > #body-controller{
+	display: none;
+}
+
+.button-zoom{
+	display: inline-block;
+	width: 49%;
+	font-size: 1rem;
+	padding: 2% 0;
+	margin-bottom: 4%;
+}
+
+#control-zoom{
+	width: 100%;
+}
+
+#buttons-controls{
+	margin-top: 2%;
+	width: 100%;
+	font-size: 0;
+}
+
+.top-bottom{
+	width: 100%;
+}
+
+.top-bottom > img{
+	width: 15%;
+}
+
+.left-right{
+	width: 50%;
+	display: inline;
+}
+
+.left-right > img{
+	width: 30%;
+}
+
+.group{
+	padding-bottom: 2%;
+	border-bottom: 1px solid white;
+	margin-top: 2%;
+}
+
+#wraper > article{
+	width: 75%;
+	float: left;
+}
+
+select{
+	width: 100%;
+	padding: 2%;
+	font-size: 1.2rem;
+	background-color: rgb(234, 234, 234);
+}
+
+.fc-event-container{
+	background-color: red !important;
+}
+
+/* Estilos para el INFOWINDOW */
+#infowindow{
+	width: 100%;
+}
+
+#infowindow > #escudos{
+	width: 100%;
+}
+
+#infowindow > #escudos > img{
+	width: 25%;
+}
+
+#infowindow > #escudos > #escudo-local{
+	float: left;
+	margin-left: 7%;
+}
+
+#infowindow > #escudos > #escudo-visitante{
+	float: right;
+	margin-right: 7%;
+}
+
+#infowindow > #resultado{
+	width: 100%;
+}
+
+#infowindow > #resultado > h3{
+	background-color: grey;
+}
+
+#infowindow > #resultado > h4{
+	font-size: 3rem;
+}
+
+#infowindow > #resultado > #resultado-local{
+	float: left;
+	margin-left: 16%;
+}
+
+#infowindow > #resultado > #resultado-visitante{
+	float: right;
+	margin-right: 16%;
+}
+
+#infowindow > #alineacion{
+	width: 100%;
+}
+
+#infowindow > #alineacion > h3{
+	background-color: grey;
+}
+
+#infowindow > #alineacion > #equipo-local{
+	float: left;
+}
+
+#infowindow > #alineacion > #equipo-visitante{
+	float: right;
+}
+
+.limpieza{
+	clear: both;
+}

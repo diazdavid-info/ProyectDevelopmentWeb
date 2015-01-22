@@ -40,7 +40,11 @@ function League(id, nombre, ayno_inicio, ayno_fin) {
 // Extensión de la clase League para añadir función extática.
 // Función que prepara y devuelve una instancia de la clase League.
 League.instance = function(json) {
-	return new League(json[0].id, json[0].nombre, json[0].ayno_inicio, json[0].ayno_fin);
+	var leagues = [];
+	for (var int = 0; int < json.length; int++) {
+		leagues[int] = new League(json[int].id, json[int].nombre, json[int].ayno_inicio, json[int].ayno_fin);
+	}
+	return leagues;
 }
 
 /**
@@ -64,6 +68,26 @@ Team.instance = function(json) {
 	return teams;
 }
 
+/**
+ * 
+ */
+function Match(jornada, fecha, liga_id, equipo_local, equipo_visitante, goles_local, goles_visitante){
+	this.jornada = jornada;
+	this.fecha = fecha;
+	this.liga_id = liga_id;
+	this.equipo_local = equipo_local;
+	this.equipo_visitante = equipo_visitante;
+	this.goles_local = goles_local;
+	this.goles_visitante = goles_visitante;
+}
+
+Match.instance = function(json) {
+	var matches = [];
+	for (var int = 0; int < json.length; int++) {
+		matches[int] = new Match(json[int].jornada, json[int].fecha, json[int].liga_id, json[int].equipo_local, json[int].equipo_visitante, json[int].equipo_local, json[int].goles_local, json[int].goles_visitante);
+	}
+	return matches;
+}
 
 
 

@@ -9,7 +9,6 @@ window.Constant = {
 window.Utils = {
 		ParseJsonToObjct: function(data, obj) {
 			var json = JSON.parse(data);
-			//return new obj(json[0].id, data.nombre, data.ayno_inicio, data.ayno_fin);
 			return obj.instance(json);
 		}
 }

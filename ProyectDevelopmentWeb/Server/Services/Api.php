@@ -28,12 +28,17 @@ class Api extends Rest {
 	}
 	
 	private function getTeam(){
-		$argTeam = Team::where("liga_id", $this->_argumentos[0]);
+		$argTeam = Team::where(array("liga_id"), $this->_argumentos);
 		$this->sendResponse(json_encode($argTeam), 200);
 	}
 	
 	private function getMatch(){
-		$argMatch = Match::where("liga_id", $this->_argumentos[0]);
+		$argMatch = Match::where(array("liga_id"), $this->_argumentos);
+		$this->sendResponse(json_encode($argMatch), 200);
+	}
+	
+	private function getMatchLeagueDay(){
+		$argMatch = Match::where(array("liga_id","jornada"), $this->_argumentos);
 		$this->sendResponse(json_encode($argMatch), 200);
 	}
 	

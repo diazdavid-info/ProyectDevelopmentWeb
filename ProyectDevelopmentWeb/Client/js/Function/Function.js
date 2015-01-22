@@ -3,30 +3,57 @@
  */
 
 var leagues;
+var teams;
+var matches;
 
 window.onload = function() {
-	//alert(window.Constant.URL_SERVER());
-	getAllLeague();
-	//getMatchLeague();
-	getTeamLeague();
+	
+	initApp();
+	
 }
 
-function getAllLeague(){
+function initApp(){
+	getAllLeague();
+	getTeamLeague();
+	getMatchLeagueDay();
+	
+	initSelectLeague();
+}
+
+function initSelectLeague(){
+	var select = document.getElementById('select-liga');
+	for (var int = 0; int < leagues.length; int++) { //<option value="<?php echo $year['id']; ?>"><?php echo $year['nombre']; ?></option>
+		var node = document.createElement("option");
+		var nodeText = document.createTextNode(leagues[int].nombre);
+		node.appendChild(nodeText);
+		var attr = document.createAttribute("value");
+		attr.value = leagues[int].id;
+		node.setAttributeNode(attr);
+		select.appendChild(node);
+	}
+}
+
+function getAllLeague() {
 	leagues = window.Utils.ParseJsonToObjct(requestServer("getLeague"), League);
 	console.log(leagues);
 }
 
 function getTeamLeague() {
-	teams = window.Utils.ParseJsonToObjct(requestServer("getTeam/"+leagues.getId()), Team);
+	teams = window.Utils.ParseJsonToObjct(requestServer("getTeam/"+leagues[0].getId()), Team);
 	console.log(teams);
 }
 
-function getAllMatch(){
+function getPlayerTeam() {
 	
 }
 
-function getMatchLeague(){
-	var Matches = window.Utils.ParseJsonToObjct(requestServer("getMatch/"+leagues.getId()), Match);
+function getAllMatch() {
+	
+}
+
+function getMatchLeagueDay() {
+	matches = window.Utils.ParseJsonToObjct(requestServer("getMatchLeagueDay/"+leagues[0].getId()+"/1"), Match);
+	console.log(matches);
 }
 
 function requestServer(request){

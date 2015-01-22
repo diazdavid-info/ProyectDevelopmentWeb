@@ -39,8 +39,16 @@ class ORM{
 	 * @return Array Devuelve una array con todos los atributos del elemento.
 	 */
 	public static function find($id){
-		$results = self::where('id',$id);
+		$results = self::where(array('id'),$id);
 		return $results[0];
+	}
+	
+	private static function prepareWhere($field){
+		$where = $field[0] . " = ?";
+		for ($i = 1;$i < count($field);$i++){
+			$where .= " and " . $field[$i] . " = ? ";
+		}
+		return $where;
 	}
 	
 	/**
@@ -52,8 +60,8 @@ class ORM{
 	public static function where($field, $value){
 		$obj = null;
 		self::getConnection();
-		$query = "SELECT * FROM " . static::$table . " WHERE " . $field . " = ?";
-		$results = self::$database->execute($query, null, array($value));
+		$query = "SELECT * FROM " . static::$table . " WHERE " . self::prepareWhere($field);
+		$results = self::$database->execute($query, null, $value);
 		if($results){
 			$class = get_called_class();
 			for ($i = 0; $i < sizeof($results); $i++){
