@@ -56,6 +56,31 @@ function Team(nombre, liga_id, lat, lng, imagen) {
 	this.lat = lat;
 	this.lng = lng;
 	this.imagen = imagen;
+	
+	// Funcion que devuelve el nombre.
+	this.getNombre = function() {
+		return this.nombre;
+	}
+	
+	// Función que devuelve el id de la liga.
+	this.getLiga_id = function() {
+		return this.liga_id;
+	}
+	
+	// Función que devuelve la latitud.
+	this.getLat = function() {
+		return this.lat;
+	}
+	
+	// Función que devuelve la longitud.
+	this.getLng = function() {
+		return this.lng;
+	}
+	
+	// Función que devuelve la imagen.
+	this.getImagen = function() {
+		return this.imagen;
+	}
 }
 
 //Extensión de la clase League para añadir función extática.
@@ -79,12 +104,49 @@ function Match(jornada, fecha, liga_id, equipo_local, equipo_visitante, goles_lo
 	this.equipo_visitante = equipo_visitante;
 	this.goles_local = goles_local;
 	this.goles_visitante = goles_visitante;
+	
+	// Funcion que devuelve la jornada.
+	this.getJornada = function() {
+		return this.jornada;
+	}
+	
+	// Función que devuelve la fecha.
+	this.getFecha = function() {
+		return this.fecha;
+	}
+	
+	// Función que devuelve el id de la liga.
+	this.getLiga_id = function() {
+		return this.liga_id;
+	}
+	
+	// Función que devuelve el equipo local.
+	this.getEquipo_local = function() {
+		return this.equipo_local;
+	}
+	
+	// Función que devuelve el equipo visitante.
+	this.getEquipo_visitante = function() {
+		return this.equipo_visitante;
+	}
+	
+	// Función que devuelve los goles locales.
+	this.getGoles_local = function() {
+		return this.goles_local;
+	}
+	
+	// Función que devuelve los goles visitantes.
+	this.getGoles_visitante = function() {
+		return this.goles_visitante;
+	}
 }
 
+//Extensión de la clase Match para añadir función extática.
+//Función que prepara y devuelve una instancia de la clase Match.
 Match.instance = function(json) {
 	var matches = [];
 	for (var int = 0; int < json.length; int++) {
-		matches[int] = new Match(json[int].jornada, json[int].fecha, json[int].liga_id, json[int].equipo_local, json[int].equipo_visitante, json[int].equipo_local, json[int].goles_local, json[int].goles_visitante);
+		matches[int] = new Match(json[int].jornada, json[int].fecha, json[int].liga_id, json[int].equipo_local, json[int].equipo_visitante, json[int].goles_local, json[int].goles_visitante);
 	}
 	return matches;
 }
