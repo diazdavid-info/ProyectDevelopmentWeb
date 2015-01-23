@@ -87,8 +87,6 @@ function getAllMatch() {
 
 function getMatchLeagueDay() {
 	requestServerAsync("getMatchLeagueDay/"+leagues[0].getId()+"/1", Match, setMatches, initSelectMatchDay);
-//	matches = window.Utils.ParseJsonToObjct(requestServer("getMatchLeagueDay/"+leagues[0].getId()+"/1"), Match);
-//	console.log(matches);
 }
 
 function requestServer(request){
