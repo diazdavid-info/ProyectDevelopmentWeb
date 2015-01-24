@@ -15,15 +15,12 @@ function initializeMap(){
 }
 
 function inicializeMarker(matches){
-	
 	for (var int = 0; int < matches.length; int++) {
-//		console.log(matches[int].equipo_local.lat);
-//		console.log(matches[int].equipo_local.lng);
-//		console.log(matches[int].equipo_local.nombre);
 		marketMatches[int] = new google.maps.Marker({
 			position: new google.maps.LatLng(matches[int].equipo_local.lat, matches[int].equipo_local.lng),
 			map: map,
-			title: matches[int].equipo_local.nombre
+			title: matches[int].equipo_local.nombre,
+			icon: "img/soccer43.png",
 		});
 	}
 	//var request = requestAjax("default",liga,team,matchDay);
