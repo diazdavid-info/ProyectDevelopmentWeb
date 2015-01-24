@@ -29,7 +29,9 @@ class Api extends Rest {
 	
 	private function getTeam(){
 		$argTeam = Team::where(array("liga_id"), $this->_argumentos);
+		//error_log(json_encode($argTeam));
 		$this->sendResponse(json_encode($argTeam), 200);
+		
 	}
 	
 	private function getMatch(){
@@ -39,7 +41,9 @@ class Api extends Rest {
 	
 	private function getMatchLeagueDay(){
 		$argMatch = Match::where(array("liga_id","jornada"), $this->_argumentos);
+		//error_log(json_encode($argMatch));
 		$this->sendResponse(json_encode($argMatch), 200);
+		
 	}
 	
 	private function getProvincia() {

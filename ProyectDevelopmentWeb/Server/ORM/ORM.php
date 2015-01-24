@@ -53,8 +53,8 @@ class ORM{
 	
 	/**
 	 * Método que hace una busqueda de elementos.
-	 * @param String $field Columna por la que buscar.
-	 * @param Mixes $value Condición por la que buscar.
+	 * @param Array $field Columna por la que buscar.
+	 * @param Array $value Condición por la que buscar.
 	 * @return Array Devuelve un array de objetos.
 	 */
 	public static function where($field, $value){

@@ -18,6 +18,9 @@ function initApp(){
 	getMatchLeagueDay();
 	
 	initSelectLeague();
+	
+	initializeMap();
+	
 }
 
 function initSelectLeague(){
@@ -34,6 +37,7 @@ function initSelectLeague(){
 }
 
 function initSelectTeam(){
+	//console.log(teams);
 	var select = document.getElementById('select-team');
 	for (var int = 0; int < teams.length; int++) { //<option value="<?php echo $year['id']; ?>"><?php echo $year['nombre']; ?></option>
 		var node = document.createElement("option");
@@ -47,13 +51,15 @@ function initSelectTeam(){
 }
 
 function initSelectMatchDay(){
+	console.log(matches);
+	inicializeMarker(matches);
 	var select = document.getElementById('select-matchDay');
-	for (var int = 0; int < teams.length; int++) { //<option value="<?php echo $year['id']; ?>"><?php echo $year['nombre']; ?></option>
+	for (var int = 0; int < matches.length; int++) { //<option value="<?php echo $year['id']; ?>"><?php echo $year['nombre']; ?></option>
 		var node = document.createElement("option");
-		var nodeText = document.createTextNode(matches[int].getJornada());
+		var nodeText = document.createTextNode(matches[int].jornada);
 		node.appendChild(nodeText);
 		var attr = document.createAttribute("value");
-		attr.value = matches[int].getJornada();
+		attr.value = matches[int].jornada;
 		node.setAttributeNode(attr);
 		select.appendChild(node);
 	}
@@ -65,24 +71,16 @@ function setTeams(args){
 
 function setMatches(args){
 	matches = args;
-	console.log(matches);
+	//console.log(matches);
 }
 
 function getAllLeague() {
 	leagues = window.Utils.ParseJsonToObjct(requestServer("getLeague"), League);
-	console.log(leagues);
+	//console.log(leagues);
 }
 
 function getTeamLeague() {
 	requestServerAsync("getTeam/"+leagues[0].getId(), Team, setTeams, initSelectTeam);
-}
-
-function getPlayerTeam() {
-	
-}
-
-function getAllMatch() {
-	
 }
 
 function getMatchLeagueDay() {

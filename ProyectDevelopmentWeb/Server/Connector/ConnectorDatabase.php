@@ -99,7 +99,7 @@ class ConnectorDatabase{
 				}elseif (is_null($value)){
 					$value = null;
 				}else{
-					$value = "'" . $this->provider->escape($value);
+					$value = "'" . $this->provider->escape($value) . "'";
 				}
 				$escaped[] = $value;
 			}

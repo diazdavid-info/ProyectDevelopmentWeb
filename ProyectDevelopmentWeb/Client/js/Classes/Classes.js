@@ -47,6 +47,12 @@ League.instance = function(json) {
 	return leagues;
 }
 
+// Extensión de la clase League para añadir función extática.
+// Función que devuelve una única instancia de la clase League através de un array.
+League.instanceUnique = function(arg) {
+	return new League(arg.id, arg['nombre'], arg['ayno_inicio'], arg['ayno_fin']);
+}
+
 /**
  *
  */
@@ -88,9 +94,15 @@ function Team(nombre, liga_id, lat, lng, imagen) {
 Team.instance = function(json) {
 	var teams = [];
 	for (var int = 0; int < json.length; int++) {
-		teams[int] = new Team(json[int].nombre, json[int].liga_id, json[int].lat, json[int].lng, json[int].imagen);
+		teams[int] = new Team(json[int].nombre, League.instanceUnique(json[int].liga_id), json[int].lat, json[int].lng, json[int].imagen);
 	}
 	return teams;
+}
+
+//Extensión de la clase Team para añadir función extática.
+//Función que devuelve una única instancia de la clase Team através de un array.
+Team.instanceUnique = function(arg) {
+	return new Team(arg[0]['nombre'], League.instanceUnique(arg[0]['liga_id']), arg[0]['lat'], arg[0]['lng'], arg[0]['image']);
 }
 
 /**
@@ -146,7 +158,7 @@ function Match(jornada, fecha, liga_id, equipo_local, equipo_visitante, goles_lo
 Match.instance = function(json) {
 	var matches = [];
 	for (var int = 0; int < json.length; int++) {
-		matches[int] = new Match(json[int].jornada, json[int].fecha, json[int].liga_id, json[int].equipo_local, json[int].equipo_visitante, json[int].goles_local, json[int].goles_visitante);
+		matches[int] = new Match(json[int].jornada, json[int].fecha, League.instanceUnique(json[int].liga_id), Team.instanceUnique(json[int].equipo_local), Team.instanceUnique(json[int].equipo_visitante), json[int].goles_local, json[int].goles_visitante);
 	}
 	return matches;
 }

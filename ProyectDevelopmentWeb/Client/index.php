@@ -4,6 +4,9 @@
 	<meta charset="utf-8" />
 	<link rel="stylesheet" type="text/css" href="style/style.css" />
 	
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+	<script type="text/javascript" src="js/Utils/map.js"></script>
+	
 	<script type="text/javascript" src="js/Classes/Classes.js"></script>
 	<script type="text/javascript" src="js/Utils/Utils.js"></script>
 	<script type="text/javascript" src="js/Function/Function.js"></script>
