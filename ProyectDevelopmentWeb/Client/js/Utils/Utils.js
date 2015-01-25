@@ -3,7 +3,8 @@
 window.Constant = {
 	URL_SERVER: function() { return "../Server/Services/Api.php"; },
 	XMLHTTP_CLIENT: function() { return (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"); },
-	SELECT_TEAM: function() { return document.getElementById('select-team'); }
+	SELECT_TEAM: function() { return document.getElementById('select-team'); },
+	SELECT_MATCH_DAY: function() { return document.getElementById('select-matchDay'); }
 }
 
 // Extensión del objeto window para añadir funciones globales.

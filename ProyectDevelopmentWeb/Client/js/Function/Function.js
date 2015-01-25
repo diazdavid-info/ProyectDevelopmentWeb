@@ -6,6 +6,7 @@ var leagues = [];
 var teams = [];
 var matches = [];
 var allMatches = [];
+var matchDay = [];
 
 window.onload = function() {
 	
@@ -16,7 +17,7 @@ window.onload = function() {
 function initApp(){
 	getAllLeague();
 	getTeamLeague();
-	getMatchLeagueDay();
+	//getMatchLeagueDay();
 	getAllMatchLeague();
 	
 	initSelectLeague();
@@ -55,15 +56,15 @@ function initSelectTeam(){
 }
 
 function initSelectMatchDay(){
-	console.log(matches);
-	inicializeMarker(matches);
+	//console.log(matches);
+//	inicializeMarker(matches);
 	var select = document.getElementById('select-matchDay');
-	for (var int = 0; int < matches.length; int++) { //<option value="<?php echo $year['id']; ?>"><?php echo $year['nombre']; ?></option>
+	for (var int = 0; int < matchDay.length; int++) { //<option value="<?php echo $year['id']; ?>"><?php echo $year['nombre']; ?></option>
 		var node = document.createElement("option");
-		var nodeText = document.createTextNode(matches[int].jornada);
+		var nodeText = document.createTextNode(matchDay[int]);
 		node.appendChild(nodeText);
 		var attr = document.createAttribute("value");
-		attr.value = matches[int].jornada;
+		attr.value = matchDay[int];
 		node.setAttributeNode(attr);
 		select.appendChild(node);
 	}
@@ -71,16 +72,22 @@ function initSelectMatchDay(){
 
 function initEvents(){
 	window.Constant.SELECT_TEAM().onchange = setMarker;
+	window.Constant.SELECT_MATCH_DAY().onchange = setMarker;
 }
 
 function setMarker(e){
-	var response = [];
-	for(var int = 0; int < matches.length; int++){
-		if(matches[int].equipo_local.nombre == this.value || matches[int].equipo_visitante.nombre == this.value){
-			response[0] = matches[int];
-			removeMarker();
-			inicializeMarker(response);
+	if(this.id == "select-team"){
+		var response = [];
+		if(this.value == "0"){ inicializeMarker(matches); }
+		for(var int = 0; int < matches.length; int++){
+			if(matches[int].equipo_local.nombre == this.value || matches[int].equipo_visitante.nombre == this.value){
+				response[0] = matches[int];
+				inicializeMarker(response);
+			}
 		}
+	}else if (this.id == "select-matchDay") {
+		//console.log(this.value);
+		extractMatches(this.value);
 	}
 }
 
@@ -88,33 +95,58 @@ function setTeams(args){
 	teams = args;
 }
 
-function setMatches(args){
-	matches = args;
-}
+//function setMatches(args){
+//	matches = args;
+//}
 
 function setAllMatches(arg){
 	allMatches = arg;
-	console.log(allMatches);
+	//console.log(allMatches);
 }
 
 function descomposition(){
-	var jornadas = [];
-	var flagJornada = 0;
-	var mat = [];
-	var flagMat = 0;
-	for (var int = 0; int < allMatches.length; int++) {
-		if(flagJornada != allMatches[int].jornada){
-			jornadas[flagJornada] = allMatches[int].jornada;
-			flagJornada = allMatches[int].jornada;
-		}
-		if(allMatches[int].jornada == 1){
-			console.log("IF");
-			mat[flagMat] = allMatches[int];
-			flagMat++;
+	//var jornadas = [];
+//	var flagJornada = 0;
+//	var mat = [];
+	extractMatches("1");
+	extractMatchDay();
+//	for (var int = 0; int < allMatches.length; int++) {
+////		if(flagJornada != allMatches[int].jornada){
+////			matchDay[flagJornada] = allMatches[int].jornada;
+////			flagJornada = allMatches[int].jornada;
+////		}
+////		if(allMatches[int].jornada == 1){
+////			console.log("IF");
+////			matches[flagMat] = allMatches[int];
+////			flagMat++;
+////		}
+//	}
+//	initSelectMatchDay();
+//	console.log(matchDay);
+//	console.log(mat);
+}
+
+function extractMatches(matchDay){
+	var flagMatch = 0;
+	for (var int = 0; int < allMatches.length; int++){
+		if(allMatches[int].jornada == matchDay){
+			matches[flagMatch] = allMatches[int];
+			flagMatch++;
 		}
 	}
-	console.log(jornadas);
-	console.log(mat);
+	inicializeMarker(matches);
+}
+
+function extractMatchDay(){
+	var flagMatchDay = 0;
+	var mat = [];
+	for (var int = 0; int < allMatches.length; int++){
+		if(flagMatchDay != allMatches[int].jornada){
+			matchDay[flagMatchDay] = allMatches[int].jornada;
+			flagMatchDay = allMatches[int].jornada;
+		}
+	}
+	initSelectMatchDay();
 }
 
 function getAllLeague() {
@@ -126,7 +158,7 @@ function getTeamLeague() {
 }
 
 function getMatchLeagueDay() {
-	requestServerAsync("getMatchLeagueDay/"+leagues[0].getId()+"/1", Match, setMatches, initSelectMatchDay);
+	//requestServerAsync("getMatchLeagueDay/"+leagues[0].getId()+"/1", Match, setMatches, initSelectMatchDay);
 }
 
 function getAllMatchLeague() {
