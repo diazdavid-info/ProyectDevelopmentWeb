@@ -15,6 +15,7 @@ function initializeMap(){
 }
 
 function inicializeMarker(matches){
+	console.log(matches);
 	for (var int = 0; int < matches.length; int++) {
 		marketMatches[int] = new google.maps.Marker({
 			position: new google.maps.LatLng(matches[int].equipo_local.lat, matches[int].equipo_local.lng),
@@ -83,8 +84,8 @@ function inicializeMarker(matches){
 //}
 
 function removeMarker(){
-	for ( var equipo in equipos) {
-		equipos[equipo].setMap(null);
+	for ( var equipo in marketMatches) {
+		marketMatches[equipo].setMap(null);
 	}
 }
 

@@ -5,6 +5,7 @@
 var leagues = [];
 var teams = [];
 var matches = [];
+var allMatches = [];
 
 window.onload = function() {
 	
@@ -16,10 +17,13 @@ function initApp(){
 	getAllLeague();
 	getTeamLeague();
 	getMatchLeagueDay();
+	getAllMatchLeague();
 	
 	initSelectLeague();
 	
 	initializeMap();
+	
+	initEvents();
 	
 }
 
@@ -65,18 +69,56 @@ function initSelectMatchDay(){
 	}
 }
 
+function initEvents(){
+	window.Constant.SELECT_TEAM().onchange = setMarker;
+}
+
+function setMarker(e){
+	var response = [];
+	for(var int = 0; int < matches.length; int++){
+		if(matches[int].equipo_local.nombre == this.value || matches[int].equipo_visitante.nombre == this.value){
+			response[0] = matches[int];
+			removeMarker();
+			inicializeMarker(response);
+		}
+	}
+}
+
 function setTeams(args){
 	teams = args;
 }
 
 function setMatches(args){
 	matches = args;
-	//console.log(matches);
+}
+
+function setAllMatches(arg){
+	allMatches = arg;
+	console.log(allMatches);
+}
+
+function descomposition(){
+	var jornadas = [];
+	var flagJornada = 0;
+	var mat = [];
+	var flagMat = 0;
+	for (var int = 0; int < allMatches.length; int++) {
+		if(flagJornada != allMatches[int].jornada){
+			jornadas[flagJornada] = allMatches[int].jornada;
+			flagJornada = allMatches[int].jornada;
+		}
+		if(allMatches[int].jornada == 1){
+			console.log("IF");
+			mat[flagMat] = allMatches[int];
+			flagMat++;
+		}
+	}
+	console.log(jornadas);
+	console.log(mat);
 }
 
 function getAllLeague() {
 	leagues = window.Utils.ParseJsonToObjct(requestServer("getLeague"), League);
-	//console.log(leagues);
 }
 
 function getTeamLeague() {
@@ -85,6 +127,10 @@ function getTeamLeague() {
 
 function getMatchLeagueDay() {
 	requestServerAsync("getMatchLeagueDay/"+leagues[0].getId()+"/1", Match, setMatches, initSelectMatchDay);
+}
+
+function getAllMatchLeague() {
+	requestServerAsync("getAllMatchLeague/"+leagues[0].getId(), Match, setAllMatches, descomposition);
 }
 
 function requestServer(request){
