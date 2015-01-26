@@ -3,12 +3,20 @@
 <head>
 	<meta charset="utf-8" />
 	<link rel="stylesheet" type="text/css" href="style/style.css" />
+	<link rel="stylesheet" type="text/css" href="style/fullcalendar.css" />
+	<link rel="stylesheet" type="text/css" href="style/fullcalendar.print.css"  media='print' />
+	
+	<script type="text/javascript" src="js/Utils/moment.min.js"></script>
+	<script type="text/javascript" src="js/Utils/jquery.min.js"></script>
+	<script type="text/javascript" src="js/Utils/fullcalendar.min.js"></script>
+	<script type="text/javascript" src="js/Utils/lang-all.js"></script>
 	
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 	<script type="text/javascript" src="js/Utils/map.js"></script>
 	
 	<script type="text/javascript" src="js/Classes/Classes.js"></script>
 	<script type="text/javascript" src="js/Utils/Utils.js"></script>
+	<script type="text/javascript" src="js/Utils/calendar.js"></script>
 	<script type="text/javascript" src="js/Function/Function.js"></script>
 </head>
 <body>

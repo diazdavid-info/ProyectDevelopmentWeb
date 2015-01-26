@@ -7,6 +7,7 @@ var teams = [];
 var matches = [];
 var allMatches = [];
 var matchDay = [];
+var calendar = [];
 
 window.onload = function() {
 	
@@ -25,7 +26,8 @@ function initApp(){
 	initializeMap();
 	
 	initEvents();
-	
+//	console.log(calendar);
+//	inicializeCalendar();
 }
 
 function initSelectLeague(){
@@ -77,16 +79,8 @@ function initEvents(){
 
 function setMarker(e){
 	if(this.id == "select-team"){
-		var response = [];
-		if(this.value == "0"){ inicializeMarker(matches); }
-		for(var int = 0; int < matches.length; int++){
-			if(matches[int].equipo_local.nombre == this.value || matches[int].equipo_visitante.nombre == this.value){
-				response[0] = matches[int];
-				inicializeMarker(response);
-			}
-		}
+		extractTeam(this.value);
 	}else if (this.id == "select-matchDay") {
-		//console.log(this.value);
 		extractMatches(this.value);
 	}
 }
@@ -110,6 +104,7 @@ function descomposition(){
 //	var mat = [];
 	extractMatches("1");
 	extractMatchDay();
+//	extractCalendar();
 //	for (var int = 0; int < allMatches.length; int++) {
 ////		if(flagJornada != allMatches[int].jornada){
 ////			matchDay[flagJornada] = allMatches[int].jornada;
@@ -134,7 +129,7 @@ function extractMatches(matchDay){
 			flagMatch++;
 		}
 	}
-	inicializeMarker(matches);
+	extractTeam(window.Constant.SELECT_TEAM().value);
 }
 
 function extractMatchDay(){
@@ -143,11 +138,29 @@ function extractMatchDay(){
 	for (var int = 0; int < allMatches.length; int++){
 		if(flagMatchDay != allMatches[int].jornada){
 			matchDay[flagMatchDay] = allMatches[int].jornada;
+			calendar[flagMatchDay] = new Calendar(allMatches[int].equipo_local+"/"+allMatches[int].equipo_visitante, allMatches[int].fecha, "event");
 			flagMatchDay = allMatches[int].jornada;
 		}
 	}
+	//console.log(calendar);
+	inicializeCalendar();
 	initSelectMatchDay();
 }
+
+function extractTeam(team){
+	var response = [];
+	if(team == "0"){ inicializeMarker(matches); }
+	for(var int = 0; int < matches.length; int++){
+		if(matches[int].equipo_local.nombre == team || matches[int].equipo_visitante.nombre == team){
+			response[0] = matches[int];
+			inicializeMarker(response);
+		}
+	}
+}
+
+//function extractCalendar(){
+//	
+//}
 
 function getAllLeague() {
 	leagues = window.Utils.ParseJsonToObjct(requestServer("getLeague"), League);

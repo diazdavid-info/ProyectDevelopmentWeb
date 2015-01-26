@@ -164,6 +164,15 @@ Match.instance = function(json) {
 }
 
 
+/**
+ * 
+ */
+function Calendar(title, start, className){
+	this.title = title;
+	this.start = start;
+	this.className = className;
+}
+
 
 
 
