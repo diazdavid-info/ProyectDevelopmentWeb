@@ -167,10 +167,12 @@ Match.instance = function(json) {
 /**
  * 
  */
-function Calendar(title, start, className){
+function Calendar(id, title, start, className, allDay){
+	this.id = id;
 	this.title = title;
 	this.start = start;
 	this.className = className;
+	this.allDay = allDay;
 }
 
 

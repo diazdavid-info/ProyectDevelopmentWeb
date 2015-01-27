@@ -68,6 +68,9 @@ function initSelectMatchDay(){
 		var attr = document.createAttribute("value");
 		attr.value = matchDay[int];
 		node.setAttributeNode(attr);
+		attr = document.createAttribute("id");
+		attr.value = "J"+matchDay[int];
+		node.setAttributeNode(attr);
 		select.appendChild(node);
 	}
 }
@@ -138,7 +141,7 @@ function extractMatchDay(){
 	for (var int = 0; int < allMatches.length; int++){
 		if(flagMatchDay != allMatches[int].jornada){
 			matchDay[flagMatchDay] = allMatches[int].jornada;
-			calendar[flagMatchDay] = new Calendar(allMatches[int].equipo_local+"/"+allMatches[int].equipo_visitante, allMatches[int].fecha, "event");
+			calendar[flagMatchDay] = new Calendar(allMatches[int].jornada,"J"+allMatches[int].jornada, window.Utils.ParseDate(allMatches[int].fecha), "event", true);
 			flagMatchDay = allMatches[int].jornada;
 		}
 	}

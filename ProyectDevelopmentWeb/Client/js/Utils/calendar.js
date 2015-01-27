@@ -23,7 +23,8 @@ function inicializeCalendar() {
 		events: calendar,
         eventClick: function(e,r,t){
         	document.getElementById(e.title).selected = 'true';
-        	change_marker();
+        	console.log(e._id);
+        	extractMatches(e._id);
     	}
 	});
 }
