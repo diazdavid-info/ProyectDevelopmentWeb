@@ -78,6 +78,8 @@ function initSelectMatchDay(){
 function initEvents(){
 	window.Constant.SELECT_TEAM().onchange = setMarker;
 	window.Constant.SELECT_MATCH_DAY().onchange = setMarker;
+	window.Constant.BUTTON_MENU().onclick = leftMenu;
+	window.Constant.BUTTON_CLOSE().onclick = rightMenu;
 }
 
 function setMarker(e){
@@ -86,6 +88,15 @@ function setMarker(e){
 	}else if (this.id == "select-matchDay") {
 		extractMatches(this.value);
 	}
+}
+
+function leftMenu(event){
+	window.Constant.DESPLE_MENU().style.right = '0px';
+	console.log(event);
+}
+
+function rightMenu(){
+	window.Constant.DESPLE_MENU().style.right = '-40%';
 }
 
 function setTeams(args){
