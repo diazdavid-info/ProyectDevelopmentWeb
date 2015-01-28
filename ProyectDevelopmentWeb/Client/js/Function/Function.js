@@ -113,6 +113,7 @@ function setAllMatches(arg){
 }
 
 function descomposition(){
+//	console.log(allMatches);
 	//var jornadas = [];
 //	var flagJornada = 0;
 //	var mat = [];

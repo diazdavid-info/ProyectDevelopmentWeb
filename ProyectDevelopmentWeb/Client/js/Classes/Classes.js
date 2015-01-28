@@ -57,6 +57,7 @@ League.instanceUnique = function(arg) {
  *
  */
 function Team(nombre, liga_id, lat, lng, imagen) {
+	console.log(imagen);
 	this.nombre = nombre;
 	this.liga_id = liga_id;
 	this.lat = lat;
@@ -156,6 +157,7 @@ function Match(jornada, fecha, liga_id, equipo_local, equipo_visitante, goles_lo
 //Extensión de la clase Match para añadir función extática.
 //Función que prepara y devuelve una instancia de la clase Match.
 Match.instance = function(json) {
+	//console.log(json);
 	var matches = [];
 	for (var int = 0; int < json.length; int++) {
 		matches[int] = new Match(json[int].jornada, json[int].fecha, League.instanceUnique(json[int].liga_id), Team.instanceUnique(json[int].equipo_local), Team.instanceUnique(json[int].equipo_visitante), json[int].goles_local, json[int].goles_visitante);
