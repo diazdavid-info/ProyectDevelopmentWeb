@@ -57,7 +57,6 @@ League.instanceUnique = function(arg) {
  *
  */
 function Team(nombre, liga_id, lat, lng, imagen) {
-	console.log(imagen);
 	this.nombre = nombre;
 	this.liga_id = liga_id;
 	this.lat = lat;
@@ -103,7 +102,7 @@ Team.instance = function(json) {
 //Extensión de la clase Team para añadir función extática.
 //Función que devuelve una única instancia de la clase Team através de un array.
 Team.instanceUnique = function(arg) {
-	return new Team(arg[0]['nombre'], League.instanceUnique(arg[0]['liga_id']), arg[0]['lat'], arg[0]['lng'], arg[0]['image']);
+	return new Team(arg[0]['nombre'], League.instanceUnique(arg[0]['liga_id']), arg[0]['lat'], arg[0]['lng'], arg[0]['imagen']);
 }
 
 /**

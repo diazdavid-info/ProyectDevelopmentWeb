@@ -274,6 +274,10 @@ select{
 	float: right;
 }
 
+.event{
+	cursor: pointer;
+}
+
 .limpieza{
 	clear: both;
 }

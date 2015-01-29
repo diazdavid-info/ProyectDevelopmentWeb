@@ -17,6 +17,7 @@
 	<script type="text/javascript" src="js/Classes/Classes.js"></script>
 	<script type="text/javascript" src="js/Utils/Utils.js"></script>
 	<script type="text/javascript" src="js/Utils/calendar.js"></script>
+	<script type="text/javascript" src="js/Function/Style.js"></script>
 	<script type="text/javascript" src="js/Function/Function.js"></script>
 </head>
 <body>

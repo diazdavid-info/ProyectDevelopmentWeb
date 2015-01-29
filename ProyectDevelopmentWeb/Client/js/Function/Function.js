@@ -18,7 +18,7 @@ window.onload = function() {
 function initApp(){
 	getAllLeague();
 	getTeamLeague();
-	//getMatchLeagueDay();
+	
 	getAllMatchLeague();
 	
 	initSelectLeague();
@@ -26,8 +26,8 @@ function initApp(){
 	initializeMap();
 	
 	initEvents();
-//	console.log(calendar);
-//	inicializeCalendar();
+	
+	initStyle()
 }
 
 function initSelectLeague(){
@@ -80,6 +80,21 @@ function initEvents(){
 	window.Constant.SELECT_MATCH_DAY().onchange = setMarker;
 	window.Constant.BUTTON_MENU().onclick = leftMenu;
 	window.Constant.BUTTON_CLOSE().onclick = rightMenu;
+	window.Constant.BUTTON_FILTERS().onclick = change_aside;
+	window.Constant.BUTTON_CONTROLLERS().onclick = change_aside;
+	window.Constant.CONTROL_ZOOM().onchange = controller_map;
+	window.Constant.BUTTON_ZOOM_MORE().onclick = controller_map;
+	window.Constant.BUTTON_ZOOM_LESS().onclick = controller_map;
+	window.Constant.BUTTON_TOP().onclick = controller_map;
+	window.Constant.BUTTON_BOTTOM().onclick = controller_map;
+	window.Constant.BUTTON_LEFT().onclick = controller_map;
+	window.Constant.BUTTON_RIGHT().onclick = controller_map;
+	/**
+	 * button_top.onclick = controller_map;
+	button_bottom.onclick = controller_map;
+	button_left.onclick = controller_map;
+	button_right.onclick = controller_map;
+	 */
 }
 
 function setMarker(e){
@@ -98,6 +113,86 @@ function leftMenu(event){
 function rightMenu(){
 	window.Constant.DESPLE_MENU().style.right = '-40%';
 }
+
+function change_aside(e){
+	for (var int = 0; int <  window.Constant.BUTTONS_ASIDE().length; int++) {
+		window.Constant.BUTTONS_ASIDE()[int].className = "button-aside";
+	}
+	this.parentElement.className += " select";
+	switch (this.id) {
+	case "button-filters":
+		window.Constant.BODY_FILTER().style.display = "block";
+		window.Constant.BODY_CONTROLLER().style.display = "none";
+		break;
+	case "button-controllers":
+		window.Constant.BODY_FILTER().style.display = "none";
+		window.Constant.BODY_CONTROLLER().style.display = "block";
+		break;
+	}
+}
+
+function controller_map(e){
+	console.log(e);
+	switch (e.type) {
+	case "change":
+		map.setZoom(parseInt(e.target.value));
+		//alert(e.target.value);
+		break;
+	case "click":
+		if(e.target.id == "button-zoom-more"){
+			map.setZoom((map.getZoom() + 1));
+			window.Constant.CONTROL_ZOOM().value = (map.getZoom() + 1);
+		}else if (e.target.id == "button-zoom-less") {
+			map.setZoom((map.getZoom() - 1));
+			window.Constant.CONTROL_ZOOM().value = (map.getZoom() - 1);
+		}else if(e.target.id == "button-top"){
+			var pepep = map.getCenter();
+			console.log(getNumberMove(map.getZoom()));
+			//alert(pepep.lat()+" / "+pepep.lng());
+			map.setCenter({lat:pepep.lat()-getNumberMove(map.getZoom()),lng:pepep.lng()});
+			//map.panBy(10,30);
+		}else if(e.target.id == "button-bottom"){
+			var pepep = map.getCenter();
+			//console.log(pepep);
+			//alert(pepep.lat()+" / "+pepep.lng());
+			map.setCenter({lat:pepep.lat()+getNumberMove(map.getZoom()),lng:pepep.lng()});
+			//map.panBy(10,30);
+		}else if(e.target.id == "button-left"){
+			var pepep = map.getCenter();
+			//console.log(pepep);
+			//alert(pepep.lat()+" / "+pepep.lng());
+			map.setCenter({lat:pepep.lat(),lng:pepep.lng()+getNumberMove(map.getZoom())});
+			//map.panBy(10,30);
+		}else if(e.target.id == "button-right"){
+			var pepep = map.getCenter();
+			//console.log(pepep);
+			//alert(pepep.lat()+" / "+pepep.lng());
+			map.setCenter({lat:pepep.lat(),lng:pepep.lng()-getNumberMove(map.getZoom())});
+			//map.panBy(10,30);
+		}
+		
+		break;
+	default:
+		break;
+	}
+}
+
+function getNumberMove(zoom){
+	var result;
+	if(zoom > -1 && zoom <= 2){
+		result = 5;
+	}else if (zoom > 2 && zoom <= 7) {
+		result = 1;
+	}else if (zoom > 7 && zoom <= 12) {
+		result = 0.01;
+	}else if (zoom > 12 && zoom <= 17) {
+		result = 0.001;
+	}else if (zoom > 17 && zoom <= 21){
+		result = 0.0001;
+	}
+	return result;
+}
+
 
 function setTeams(args){
 	teams = args;

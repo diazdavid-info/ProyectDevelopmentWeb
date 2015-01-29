@@ -7,9 +7,19 @@ window.Constant = {
 	SELECT_MATCH_DAY: function() { return document.getElementById('select-matchDay'); },
 	DESPLE_MENU: function() { return document.getElementById('desple-menu'); },
 	BUTTON_MENU: function() { return document.getElementById('botton-menu'); },
-	BUTTON_CLOSE: function() { return document.getElementById('botton-close'); }
-	//desple_menu = document.getElementById('desple-menu');
-	//botton_close = document.getElementById('botton-close');
+	BUTTON_CLOSE: function() { return document.getElementById('botton-close'); },
+	BUTTONS_ASIDE: function() { return document.getElementsByClassName('button-aside'); },
+	BUTTON_FILTERS: function() { return document.getElementById('button-filters'); },
+	BUTTON_CONTROLLERS: function() { return document.getElementById('button-controllers'); },
+	BODY_FILTER: function() { return document.getElementById('body-filter'); },
+	BODY_CONTROLLER: function() { return document.getElementById('body-controller'); },
+	CONTROL_ZOOM: function() { return document.getElementById('control-zoom'); },
+	BUTTON_ZOOM_MORE: function() { return document.getElementById('button-zoom-more'); },
+	BUTTON_ZOOM_LESS: function() { return document.getElementById('button-zoom-less'); },
+	BUTTON_TOP: function() { return document.getElementById('button-top'); },
+	BUTTON_LEFT: function() { return document.getElementById('button-left'); },
+	BUTTON_RIGHT: function() { return document.getElementById('button-right'); },
+	BUTTON_BOTTOM: function() { return document.getElementById('button-bottom'); }
 }
 
 // Extensión del objeto window para añadir funciones globales.
