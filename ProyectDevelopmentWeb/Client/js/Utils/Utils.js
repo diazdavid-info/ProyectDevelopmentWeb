@@ -5,6 +5,8 @@ window.Constant = {
 	XMLHTTP_CLIENT: function() { return (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"); },
 	SELECT_TEAM: function() { return document.getElementById('select-team'); },
 	SELECT_MATCH_DAY: function() { return document.getElementById('select-matchDay'); },
+	SELECT_TIME: function() { return document.getElementById('select-time'); },
+	SELECT_COUNTRY: function() { return document.getElementById('select-country'); },
 	DESPLE_MENU: function() { return document.getElementById('desple-menu'); },
 	BUTTON_MENU: function() { return document.getElementById('botton-menu'); },
 	BUTTON_CLOSE: function() { return document.getElementById('botton-close'); },
@@ -19,7 +21,10 @@ window.Constant = {
 	BUTTON_TOP: function() { return document.getElementById('button-top'); },
 	BUTTON_LEFT: function() { return document.getElementById('button-left'); },
 	BUTTON_RIGHT: function() { return document.getElementById('button-right'); },
-	BUTTON_BOTTOM: function() { return document.getElementById('button-bottom'); }
+	BUTTON_BOTTOM: function() { return document.getElementById('button-bottom'); },
+	COUNT_MARKER: function() { return document.getElementById('num-cantidad'); },
+	IMAGE_POPUP: function() { return document.getElementById('imagen-popup'); },
+	POPUP: function() { return document.getElementById('popup'); }
 }
 
 // Extensión del objeto window para añadir funciones globales.

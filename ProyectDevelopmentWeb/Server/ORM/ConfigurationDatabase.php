@@ -12,7 +12,7 @@ class ConfigurationDatabase{
 	const DB_HOST = "localhost";
 	const DB_USER = "root";
 	const DB_PASSWORD = "";
-	const DB_DB = "desarrollo";
+	const DB_DB = "desarrollo2";
 	const DB_CHARSET = "utf8";
 	
 	public static function getDbProvider(){

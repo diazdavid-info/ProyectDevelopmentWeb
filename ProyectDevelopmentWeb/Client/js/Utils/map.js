@@ -17,11 +17,12 @@ function initializeMap(){
 function inicializeMarker(matches){
 	removeMarker();
 	//console.log(matches);
+	window.Constant.COUNT_MARKER().innerHTML = matches.length;
 	for (var int = 0; int < matches.length; int++) {
 		marketMatches[int] = new google.maps.Marker({
 			position: new google.maps.LatLng(matches[int].equipo_local.lat, matches[int].equipo_local.lng),
 			map: map,
-			title: matches[int].equipo_local.nombre + " VS " + matches[int].equipo_visitante.nombre,
+			title: matches[int].equipo_local.nombre + "-" + matches[int].equipo_visitante.nombre,
 			icon: "img/soccer43.png",
 		});
 		(function(marker,teams) {
@@ -32,15 +33,16 @@ function inicializeMarker(matches){
 				infowindow.setContent(teams);
 				infowindow.open(map,marker);
 				console.log(marker.title);
-//				document.getElementById('allTeam').selected = "false";
-//				document.getElementById(marker.title).selected = "true";
+				console.log(marker.title.split("-")[0]);
+				document.getElementById('allTeam').selected = "false";
+				document.getElementById(marker.title.split("-")[0]).selected = "true";
 			});
 			google.maps.event.addListener(infowindow,'closeclick',function(){
 				map.setZoom(6);
 				map.setCenter({lat: 40.416775400000000000,lng: -3.703790199999957600});
 				map.setOptions({mapTypeId:google.maps.MapTypeId.ROADMAP});
-//				document.getElementById(marker.title).selected = "false";
-//				document.getElementById('allTeam').selected = "true";
+				document.getElementById(marker.title.split("-")[0]).selected = "false";
+				document.getElementById('allTeam').selected = "true";
 			});
 		})(marketMatches[int],inicializeTeam(matches[int]));
 		}
@@ -110,10 +112,6 @@ function removeMarker(){
 }
 
 function inicializeTeam(matches){
-//	console.log(matches);
-//	var match = requestAjax("getMatch",liga,team,matchDay);
-//	var playerMatch = requestAjax("getPlayerMatch",match[0]['jornada'],match[0]['fecha'],match[0]['liga_id'],match[0]['equipo_local']);
-//	var result;
 	result = "<div id='infowindow'>";
 	result += "<div id='escudos'>";
 	result += "<img id='escudo-local' src='"+matches.equipo_local.imagen+"' alt='"+matches.equipo_local.nombre+"' />";
@@ -126,42 +124,6 @@ function inicializeTeam(matches){
 	result += "<h4 id='resultado-visitante'>"+matches.goles_visitante+"</h4>";
 	result += "<div class='limpieza'></div>";
 	result += "</div>";
-//	result += "<div id='alineacion'>";
-//	result += "<h3>Alineación</h3>"
-//	result += "<div id='equipo-local'>";
-//	result += "<table>";
-//	result += "<tr>";
-//	result += "<th>Dorsal</th>";
-//	result += "<th>Nombre</th>";
-//	result += "<th>Imagen</th>";
-//	result += "</tr>";
-//	for (var key in playerMatch[1]) {
-//		result += "<tr>";
-//		result += "<td>"+playerMatch[1][key]['jugador_dorsal']+"</td>";
-//		result += "<td>"+playerMatch[1][key]['nombre']+"</td>";
-//		result += "<td><img src='"+playerMatch[1][key]['imagen']+"' alt='"+playerMatch[1][key]['nombre']+"'/></td>";
-//		result += "</tr>";
-//	}
-//	result += "</table>";
-//	result += "</div>";
-//	result += "<div id='equipo-visitante'>"
-//	result += "<table>";
-//	result += "<tr>";
-//	result += "<th>Dorsal</th>";
-//	result += "<th>Nombre</th>";
-//	result += "<th>Imagen</th>";
-//	result += "</tr>";
-//	for (var key in playerMatch[0]) {
-//		result += "<tr>";
-//		result += "<td>"+playerMatch[0][key]['jugador_dorsal']+"</td>";
-//		result += "<td>"+playerMatch[0][key]['nombre']+"</td>";
-//		result += "<td><img src='"+playerMatch[0][key]['imagen']+"' alt='"+playerMatch[0][key]['nombre']+"'/></td>";
-//		result += "</tr>";
-//	}
-//	result += "</table>";
-//	result += "</div>";
-//	result += "<div class='limpieza'></div>";
-//	result += "</div>";
 	result += "</div>";
 	return result;
 }

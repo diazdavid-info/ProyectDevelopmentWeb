@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title>Fútbol</title>
+	<title>Películas</title>
 	<link rel="stylesheet" type="text/css" href="style/style.css" />
 	<link rel="stylesheet" type="text/css" href="style/fullcalendar.css" />
 	<link rel="stylesheet" type="text/css" href="style/fullcalendar.print.css"  media='print' />
@@ -13,19 +13,19 @@
 	<script type="text/javascript" src="js/Utils/lang-all.js"></script>
 	
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-	<script type="text/javascript" src="js/Utils/map.js"></script>
+	<script type="text/javascript" src="js/Utils/mapFilm.js"></script>
 	
 	<script type="text/javascript" src="js/Classes/Classes.js"></script>
 	<script type="text/javascript" src="js/Utils/Utils.js"></script>
-	<script type="text/javascript" src="js/Utils/calendar.js"></script>
 	<script type="text/javascript" src="js/Function/Style.js"></script>
-	<script type="text/javascript" src="js/Function/Function.js"></script>
+	<script type="text/javascript" src="js/Function/FunctionFilms.js"></script>
 </head>
 <body>
 	<div id="test"></div>
+	<div id="popup"><img id="imagen-popup" src="http://cinemania.es/wp-content/uploads/2015/02/261182-248x370.jpg" alt="popup" /></div>
 	<header>
 		<nav>
-			<img alt="futbol" src="img/futbol.jpg" />
+			<img alt="futbol" src="img/pelicula.jpg" />
 			<div id="botton-menu">
 				<a href="#" >
 					<span>Menú</span>
@@ -48,7 +48,7 @@
 		</nav>
 	</header>
 	<div id="wraper">
-		<aside id="aside">
+		<aside>
 			<div id="controller">
 				<div id="head-controller">
 					
@@ -70,39 +70,26 @@
 						<button id="button-zoom-less" class="button-zoom">Alejarse</button>
 						<input id="control-zoom" type="range" min="0"  max="21" />
 						<div id="buttons-controls">
-							<button id="button-top" class="button-control top-bottom"><img alt="arriba" src="img/arrow-top.png" /></button>
-							<button id="button-left" class="button-control left-right"><img alt="izquierda" src="img/arrow-left.png" /></button>
-							<button id="button-right" class="button-control left-right"><img alt="derecha" src="img/arrow-right.png" /></button>
-							<button id="button-bottom" class="button-control top-bottom"><img alt="abajo" src="img/arrow-bottom.png" /></button>
+							<button id="button-top" class="button-control top-bottom"><img alt="flecha" src="img/arrow-top.png" /></button>
+							<button id="button-left" class="button-control left-right"><img alt="flecha" src="img/arrow-left.png" /></button>
+							<button id="button-right" class="button-control left-right"><img alt="flecha" src="img/arrow-right.png" /></button>
+							<button id="button-bottom" class="button-control top-bottom"><img alt="flecha" src="img/arrow-bottom.png" /></button>
 						</div>
 						
 					</div>
 				</div>
 				<div id="body-filter">
 					<div class="group">
-						<h4>Liga:</h4>
-						<select id="select-liga">
-							
-						</select>
-					</div>
-					<div class="group">
-						<h4>Equipo:</h4>
-						<select id="select-team">
+						<h4>País:</h4>
+						<select id="select-country">
 							<option id="allTeam" value="0">Todos</option>
-							
 						</select>
 					</div>
 					<div class="group">
-						<h4>Jornada:</h4>
-						<select id="select-matchDay">
-							
+						<h4>Tiempo:</h4>
+						<select id="select-time">
 						</select>
 					</div>
-					<div class="group">
-						<h4>Calendario:</h4>
-						<div id="calendar"></div>
-					</div>
-					
 				</div>
 			</div>
 		</aside>
@@ -116,7 +103,7 @@
 			<div id="colum1" class="colum">
 				<h2>Resumen</h2>
 				<p id="cantidad">Cantidad de marcadores <span id="num-cantidad"></span></p>
-				<p>Tipo de marcadores chinchetas</p>
+				<p>Tipo de marcadores círculos</p>
 			</div>
 			<div id="colum2" class="colum">
 				<h2>Redes sociales</h2>

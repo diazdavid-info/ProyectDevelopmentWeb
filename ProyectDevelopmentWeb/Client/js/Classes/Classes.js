@@ -89,7 +89,7 @@ function Team(nombre, liga_id, lat, lng, imagen) {
 	}
 }
 
-//Extensión de la clase League para añadir función extática.
+//Extensión de la clase Team para añadir función extática.
 //Función que prepara y devuelve una instancia de la clase League.
 Team.instance = function(json) {
 	var teams = [];
@@ -176,7 +176,52 @@ function Calendar(id, title, start, className, allDay){
 	this.allDay = allDay;
 }
 
+function Film(id, nombre, imagen, fecha){
+	this.id = id;
+	this.nombre = nombre;
+	this.imagen = imagen;
+	this.fecha = fecha;
+}
 
+//Extensión de la clase Film para añadir función extática.
+//Función que prepara y devuelve una instancia de la clase Film.
+Film.instance = function(json) {
+	var films = [];
+	for (var int = 0; int < json.length; int++) {
+		films[int] = new Film(json[int].id, json[int].nombre, json[int].imagen, json[int].fecha);
+	}
+	return films;
+}
+
+//Extensión de la clase Film para añadir función extática.
+//Función que devuelve una única instancia de la clase Film através de un array.
+Film.instanceUnique = function(arg) {
+	return new Film(arg[0]['id'], arg[0]['nombre'], arg[0]['imagen'], arg[0]['fecha']);
+}
+
+function Country(id, nombre, lat, lng, film){
+	this.id = id;
+	this.nombre = nombre;
+	this.lat = lat;
+	this.lng = lng;
+	this.film = film;
+}
+
+//Extensión de la clase Country para añadir función extática.
+//Función que prepara y devuelve una instancia de la clase Country.
+Country.instance = function(json) {
+	var countries = [];
+	for (var int = 0; int < json.length; int++) {
+		countries[int] = new Country(json[int].id, json[int].nombre, json[int].lat, json[int].lng, Film.instance(json[int].film));
+	}
+	return countries;
+}
+
+//Extensión de la clase Country para añadir función extática.
+//Función que devuelve una única instancia de la clase Country através de un array.
+Country.instanceUnique = function(arg) {
+	return new Country(arg[0]['id'], arg[0]['nombre'], arg[0]['lat'], arg[0]['lng'], Film.instance(arg[0]['film']));
+}
 
 
 

@@ -160,6 +160,7 @@ class ConnectorDatabase{
 	public function execute($q, $array_index = null, $params = null){
 		$result = $this->sendQuery($q, $params);
 		$response = ($this->provider->getErrorNo()) ? false : true;
+		$arr = array();
 		if((is_object($result) || $this->provider->numRows($result) || $result) && ($result !== true && $result !== false)){
 			while($row = $this->provider->fetchArray($result)){
 				if($array_index){

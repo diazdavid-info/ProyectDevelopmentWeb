@@ -71,6 +71,20 @@ class ORM{
 		return $obj;
 	}
 	
+	public static function whereDate($field, $value){
+		$obj = null;
+		self::getConnection();
+		$query = "SELECT * FROM " . static::$table . " WHERE " . $field[0] . " = ? and " . $field[1] . " > ? ";
+		$results = self::$database->execute($query, null, $value);
+		if($results){
+			$class = get_called_class();
+			for ($i = 0; $i < sizeof($results); $i++){
+				$obj[] = new $class($results[$i]);
+			}
+		}
+		return $obj;
+	}
+	
 	public static function all($order = null){
 		$objs = null;
 		self::getConnection();

@@ -29,7 +29,6 @@ class Api extends Rest {
 	
 	private function getTeam(){
 		$argTeam = Team::where(array("liga_id"), $this->_argumentos);
-		//error_log(json_encode($argTeam));
 		$this->sendResponse(json_encode($argTeam), 200);
 	}
 	
@@ -40,7 +39,6 @@ class Api extends Rest {
 	
 	private function getMatchLeagueDay(){
 		$argMatch = Match::where(array("liga_id","jornada"), $this->_argumentos);
-		//error_log(json_encode($argMatch));
 		$this->sendResponse(json_encode($argMatch), 200);
 	}
 	
@@ -52,25 +50,20 @@ class Api extends Rest {
 	private function getProvincia() {
 		$provincias = Provincia::find(1);
 		$this->sendResponse(json_encode($provincias), 200);
-		//echo $idUsuario . "<br/>";
-// 		if (isset($this->datosPeticion['nombre'])) {
-// 			$nombre = $this->datosPeticion['nombre'];
-// 			$id = (int) $idUsuario;
-// 			if (!empty($nombre) and $id > 0) {
-// 				$query = $this->_conn->prepare("update usuario set nombre=:nombre WHERE id =:id");
-// 				$query->bindValue(":nombre", $nombre);
-// 				$query->bindValue(":id", $id);
-// 				$query->execute();
-// 				$filasActualizadas = $query->rowCount();
-// 				if ($filasActualizadas == 1) {
-// 					$resp = array('estado' => "correcto", "msg" => "nombre de usuario actualizado correctamente.");
-// 					$this->mostrarRespuesta($this->convertirJson($resp), 200);
-// 				} else {
-// 					$this->mostrarRespuesta($this->convertirJson($this->devolverError(5)), 400);
-// 				}
-// 			}
-// 		}
-//		$this->mostrarRespuesta($this->convertirJson($this->devolverError(5)), 400);
+	}
+	
+	private function getAllCountry(){
+		$countries = Country::all();
+		$countries2 = array();
+		foreach ($countries as $country){
+			$films = Film::whereDate(array("pais_id","fecha"), array($country->id, $this->_argumentos[0]));
+			$country->setFilm($films);
+			if($films != null){
+				$countries2[] = $country;
+			}
+			
+		}
+		$this->sendResponse(json_encode($countries2), 200);
 	}
 }
 $api = new Api();

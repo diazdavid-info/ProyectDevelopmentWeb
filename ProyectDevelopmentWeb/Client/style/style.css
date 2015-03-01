@@ -88,6 +88,14 @@ nav > #desple-menu > ul > li{
 	text-transform: uppercase;
 }
 
+nav > #desple-menu > ul > li > a{
+	margin-bottom: 5%;
+	color: white;
+	font-size: 1.2rem;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
 nav > #desple-menu > #botton-close{
 	margin: 5% 12% 0%;
 	background-color: white;
@@ -122,6 +130,7 @@ nav > #desple-menu > #botton-close > a > span{
 	background-color: #545454;
 	width: 25%;
 	float: right;
+	height: 700px;
 }
 
 #wraper > aside > #filter{
@@ -274,8 +283,70 @@ select{
 	float: right;
 }
 
+#infowindow > .image-film{
+	width: 50%;
+}
+
+#infowindow > .title-film{
+	margin-bottom: 10%;
+}
+
+footer{
+	width: 100%;
+	background-color: black;
+	color: white;
+	padding: 1%;
+}
+
+.colum{
+	width: 23.5%;
+	float: left;
+	margin-right: 2%;
+	border-right: 1px solid white;
+	padding-right: 2%;
+}
+
+.colum h2{
+	margin-bottom: 2%;
+}
+
+.colum p{
+	margin-bottom: 2%;
+}
+
+.colum a{
+	margin-bottom: 1%;
+	text-decoration: none;
+	color: white;
+	display: block;
+}
+
+#colum4{
+	margin-right: 0;
+	border: 0;
+}
+
 .event{
 	cursor: pointer;
+}
+
+#popup{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.8);
+	z-index: 10;
+	display: none;
+}
+
+#popup > img{
+	width: 500px;
+	height: 745px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -372.5px;
+	margin-left: -250px;
 }
 
 .limpieza{

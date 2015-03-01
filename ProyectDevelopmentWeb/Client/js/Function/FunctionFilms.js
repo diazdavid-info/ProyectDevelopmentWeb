@@ -2,13 +2,7 @@
  * 
  */
 
-var leagues = [];
-var teams = [];
-var matches = [];
-var allMatches = [];
-var matchDay = [];
-var calendar = [];
-
+var countries = [];
 window.onload = function() {
 	
 	initApp();
@@ -16,69 +10,59 @@ window.onload = function() {
 }
 
 function initApp(){
-	getAllLeague();
-	getTeamLeague();
+	getAllCountry();
 	
-	getAllMatchLeague();
-	
-	initSelectLeague();
+	initSelectTime();
 	
 	initializeMap();
 	
 	initEvents();
-	
-	initStyle()
 }
 
-function initSelectLeague(){
-	var select = document.getElementById('select-liga');
-	for (var int = 0; int < leagues.length; int++) {
-		var node = document.createElement("option");
-		var nodeText = document.createTextNode(leagues[int].nombre);
-		node.appendChild(nodeText);
-		var attr = document.createAttribute("value");
-		attr.value = leagues[int].id;
-		node.setAttributeNode(attr);
-		select.appendChild(node);
+function setCountry(response){
+	countries = response;
+}
+
+function initSelectCountry(){
+	inicializeMarker(countries);
+	var select = document.getElementById('select-country');
+	while (select.firstChild) {
+	    select.removeChild(select.firstChild);
 	}
-}
-
-function initSelectTeam(){
-	var select = document.getElementById('select-team');
-	for (var int = 0; int < teams.length; int++) {
+	select.innerHTML += "<option id='todos' value='todos'>Todos</option>";
+	for (var int = 0; int < countries.length; int++) { 
 		var node = document.createElement("option");
-		var nodeText = document.createTextNode(teams[int].nombre);
+		var nodeText = document.createTextNode(countries[int].nombre);
 		node.appendChild(nodeText);
 		var attr = document.createAttribute("value");
-		attr.value = teams[int].nombre;
+		attr.value = countries[int].nombre;
 		node.setAttributeNode(attr);
 		select.appendChild(node);
 		var attr2 = document.createAttribute("id");
-		attr2.value = teams[int].nombre;
+		attr2.value = countries[int].nombre;
 		node.setAttributeNode(attr2);
 		select.appendChild(node);
 	}
 }
 
-function initSelectMatchDay(){
-	var select = document.getElementById('select-matchDay');
-	for (var int = 0; int < matchDay.length; int++) {
-		var node = document.createElement("option");
-		var nodeText = document.createTextNode(matchDay[int]);
-		node.appendChild(nodeText);
-		var attr = document.createAttribute("value");
-		attr.value = matchDay[int];
-		node.setAttributeNode(attr);
-		attr = document.createAttribute("id");
-		attr.value = "J"+matchDay[int];
-		node.setAttributeNode(attr);
-		select.appendChild(node);
-	}
+function initSelectTime(){
+	var select = document.getElementById('select-time');
+	select.innerHTML += "<option id='20150222' value='20150222'>Hace una semana</option>";
+	select.innerHTML += "<option id='20150203' value='20150203'>Hace un mes</option>";
+	select.innerHTML += "<option id='20150103' value='20150103'>Hace dos mes</option>";
+	select.innerHTML += "<option id='20141003' value='20141003'>Hace seis mes</option>";
+	select.innerHTML += "<option id='20140301' value='20140301'>Hace un año</option>";
+	select.innerHTML += "<option id='20130301' value='20130301'>Hace dos años</option>";
+}
+
+function getAllCountry(){
+	requestServerAsync("getAllCountry/20150222", Country, setCountry, initSelectCountry);
 }
 
 function initEvents(){
-	window.Constant.SELECT_TEAM().onchange = setMarker;
-	window.Constant.SELECT_MATCH_DAY().onchange = setMarker;
+	window.Constant.SELECT_TIME().onchange = setMarker;
+	window.Constant.SELECT_COUNTRY().onchange = setMarker;
+	window.Constant.POPUP().onclick = noneImg;
 	window.Constant.BUTTON_MENU().onclick = leftMenu;
 	window.Constant.BUTTON_CLOSE().onclick = rightMenu;
 	window.Constant.BUTTON_FILTERS().onclick = change_aside;
@@ -90,14 +74,6 @@ function initEvents(){
 	window.Constant.BUTTON_BOTTOM().onclick = controller_map;
 	window.Constant.BUTTON_LEFT().onclick = controller_map;
 	window.Constant.BUTTON_RIGHT().onclick = controller_map;
-}
-
-function setMarker(e){
-	if(this.id == "select-team"){
-		extractTeam(this.value);
-	}else if (this.id == "select-matchDay") {
-		extractMatches(this.value);
-	}
 }
 
 function leftMenu(event){
@@ -150,7 +126,6 @@ function controller_map(e){
 			var pepep = map.getCenter();
 			map.setCenter({lat:pepep.lat(),lng:pepep.lng()-getNumberMove(map.getZoom())});
 		}
-		
 		break;
 	default:
 		break;
@@ -173,66 +148,34 @@ function getNumberMove(zoom){
 	return result;
 }
 
-
-function setTeams(args){
-	teams = args;
+function popUp(e){
+	console.log(e);
+	console.log(e.target.src);
+	window.Constant.IMAGE_POPUP().src = e.target.src;
+	window.Constant.POPUP().style.display = "block";
 }
 
-function setAllMatches(arg){
-	allMatches = arg;
+function noneImg(e){
+	this.style.display = "none";
 }
 
-function descomposition(){
-	extractMatches("1");
-	extractMatchDay();
-}
-
-function extractMatches(matchDay){
-	var flagMatch = 0;
-	for (var int = 0; int < allMatches.length; int++){
-		if(allMatches[int].jornada == matchDay){
-			matches[flagMatch] = allMatches[int];
-			flagMatch++;
+function setMarker(e){
+	if(this.id == "select-time"){
+		requestServerAsync("getAllCountry/"+e.target.value, Country, setCountry, initSelectCountry);
+	}else if (this.id == "select-country") {
+		if(e.target.value != "todos"){
+			var tempCountries = []
+			for (var int = 0; int < countries.length; int++) {
+				if(countries[int].nombre == e.target.value){
+					tempCountries.push(countries[int]);
+				}
+			}
+			inicializeMarker(tempCountries);
+		}else{
+			inicializeMarker(countries);
 		}
+		
 	}
-	extractTeam(window.Constant.SELECT_TEAM().value);
-}
-
-function extractMatchDay(){
-	var flagMatchDay = 0;
-	var mat = [];
-	for (var int = 0; int < allMatches.length; int++){
-		if(flagMatchDay != allMatches[int].jornada){
-			matchDay[flagMatchDay] = allMatches[int].jornada;
-			calendar[flagMatchDay] = new Calendar(allMatches[int].jornada,"J"+allMatches[int].jornada, window.Utils.ParseDate(allMatches[int].fecha), "event", true);
-			flagMatchDay = allMatches[int].jornada;
-		}
-	}
-	inicializeCalendar();
-	initSelectMatchDay();
-}
-
-function extractTeam(team){
-	var response = [];
-	if(team == "0"){ inicializeMarker(matches); }
-	for(var int = 0; int < matches.length; int++){
-		if(matches[int].equipo_local.nombre == team || matches[int].equipo_visitante.nombre == team){
-			response[0] = matches[int];
-			inicializeMarker(response);
-		}
-	}
-}
-
-function getAllLeague() {
-	leagues = window.Utils.ParseJsonToObjct(requestServer("getLeague"), League);
-}
-
-function getTeamLeague() {
-	requestServerAsync("getTeam/"+leagues[0].getId(), Team, setTeams, initSelectTeam);
-}
-
-function getAllMatchLeague() {
-	requestServerAsync("getAllMatchLeague/"+leagues[0].getId(), Match, setAllMatches, descomposition);
 }
 
 function requestServer(request){
