@@ -1,19 +1,13 @@
 <?php
 require_once ('../Classes/LinkClasses.php');
 class Rest{
-	//public $tipo = "application/json";
 	public $typeResponse = "application/json";
-	//public $datosPeticion = array();
 	public $dataRequest = array();
-	//private $_codEstado = 200;
 	private $codState = 200;
 	
-// 	public function __construct() {
-// 		$this->tratarEntrada();
-// 	}
 	
 	public function sendResponse($data, $state) {
-		$this->codState = ($state) ? $state : 200;//si no se envía $estado por defecto será 200
+		$this->codState = ($state) ? $state : 200;
 		$this->setHeader();
 		echo $data;
 		exit;
@@ -52,14 +46,9 @@ class Rest{
 			}
 		} else {
 			if (get_magic_quotes_gpc()) {
-				//Quitamos las barras de un string con comillas escapadas
-				//Aunque actualmente se desaconseja su uso, muchos servidores tienen activada la extensión magic_quotes_gpc.
-				//Cuando esta extensión está activada, PHP añade automáticamente caracteres de escape (\) delante de las comillas que se escriban en un campo de formulario.
 				$data = trim(stripslashes($data));
 			}
-			//eliminamos etiquetas html y php
 			$data = strip_tags($data);
-			//Conviertimos todos los caracteres aplicables a entidades HTML
 			$data = htmlentities($data);
 			$entrada = trim($data);
 		}
@@ -74,13 +63,8 @@ class Rest{
 			case "POST":
 				$this->datosPeticion = $this->limpiarEntrada($_POST);
 				break;
-			case "DELETE"://"falling though". Se ejecutará el case siguiente
+			case "DELETE":
 			case "PUT":
-				//php no tiene un método propiamente dicho para leer una petición PUT o DELETE por lo que se usa un "truco":
-				//leer el stream de entrada file_get_contents("php://input") que transfiere un fichero a una cadena.
-				//Con ello obtenemos una cadena de pares clave valor de variables (variable1=dato1&variable2=data2...)
-				//que evidentemente tendremos que transformarla a un array asociativo.
-				//Con parse_str meteremos la cadena en un array donde cada par de elementos es un componente del array.
 				parse_str(file_get_contents("php://input"), $this->datosPeticion);
 				$this->datosPeticion = $this->limpiarEntrada($this->datosPeticion);
 				break;
